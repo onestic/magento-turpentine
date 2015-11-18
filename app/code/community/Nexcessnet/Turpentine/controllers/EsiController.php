@@ -191,8 +191,17 @@ class Nexcessnet_Turpentine_EsiController extends Mage_Core_Controller_Front_Act
         );
 
         $layoutUpdate = $layout->getUpdate();
-        $layoutUpdate->load( $this->_swapCustomerHandles(
-            $esiData->getLayoutHandles() ) );
+        /*
+        * Fix for avoiding block errors with multiple templates adding a handle.
+        * https://github.com/nexcess/magento-turpentine/issues/272
+        *
+        * Removed:
+        * $layoutUpdate->load($this->_swapCustomerHandles($esiData->getLayoutHandles()));
+        *
+        */
+        $handles = $this->_swapCustomerHandles($esiData->getLayoutHandles());
+        $handles[] = 'THEME'.$package->getArea().''.$package->getPackageName().''.$package->getTheme('layout');
+        $layoutUpdate->load($handles);
         foreach( $esiData->getDummyBlocks() as $blockName ) {
             $layout->createBlock( 'Mage_Core_Block_Template', $blockName );
         }
