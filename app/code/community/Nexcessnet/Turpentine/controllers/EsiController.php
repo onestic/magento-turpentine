@@ -199,6 +199,7 @@ class Nexcessnet_Turpentine_EsiController extends Mage_Core_Controller_Front_Act
         * $layoutUpdate->load($this->_swapCustomerHandles($esiData->getLayoutHandles()));
         *
         */
+        $package = Mage::getSingleton( 'core/design_package' );
         $handles = $this->_swapCustomerHandles($esiData->getLayoutHandles());
         $handles[] = 'THEME'.$package->getArea().''.$package->getPackageName().''.$package->getTheme('layout');
         $layoutUpdate->load($handles);
