@@ -28,10 +28,6 @@ C{
 
 import std;
 
-## Custom VCL Logic
-
-{{custom_vcl_include}}
-
 ## Backends
 
 {{default_backend}}
@@ -434,3 +430,8 @@ sub vcl_deliver {
         unset resp.http.X-Varnish-Set-Cookie;
     }
 }
+
+## Custom VCL Logic
+
+{{custom_vcl_include}}
+
